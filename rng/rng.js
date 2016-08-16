@@ -11,12 +11,17 @@ server.route({
     method: 'GET',
     path: '/{numbytes}',
     handler: function (request, reply) {
-        var num = parseInt(request.params.numbytes);
+        setTimeout(function() {
+            // time.sleep(0.1)
+            var num = parseInt(request.params.numbytes);
         
-        crypto.randomBytes(num, function(err, buffer) {
-            var token = buffer.toString('hex');
-            reply(token);
-        });
+            crypto.randomBytes(num, function(err, buffer) {
+                var token = buffer.toString('hex');
+                reply(token);
+            });
+        }, 100);
+
+        
     }
 });
 

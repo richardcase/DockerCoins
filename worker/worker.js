@@ -1,6 +1,7 @@
 var moment = require('moment');
 var redis = require("redis");
-var request = require('request-promise');
+var request = require('sync-request');
+
 
 var client = redis.createClient(6379, 'redis');
 
@@ -9,47 +10,35 @@ client.on("error", function (err) {
 });
 
 function getRandomBytes() {
-    const options = {
-        method: 'GET',
-        uri: 'http://rng/32'
-    }
-
-    request(options)
-        .then(function(response) {
-           return response; 
-        })
-        .catch(function(err) {
-            console.error(err);
-        });
-    
+    var res = request('GET','http://rng:8002/32', {
+        'headers' : {
+            'content-type' : 'text/plain'
+        }
+    });
+    return res.getBody().toString('utf-8');     
 }
 
 function hashBytes(data) {
-    const options = {
-        method: 'POST',
-        uri: 'http://hasher/',
-        body: data
-    };
-
-    request(options)
-        .then(function(response) {
-            return response;
-        })
-        .catch(function(err) {
-            console.error(err);
-        })
+    var res = request('POST', 'http://hasher:8001', {
+        body: data,
+        'headers' : {
+            'content-type' : 'text/plain'
+        }
+    });
+    return res.getBody().toString('utf-8');
 }
 
 function work_loop() {
+    console.log("***Entering work loop");
     var interval = 1;
     var deadline = 0;
     var loops_done = 0
-    client.set('hashes', 0);
     while (true) {
         var current = moment().unix();
+        console.log(deadline);
         if (current > deadline) {
             console.log("%s units of work done, updating hash counter", loops_done);
-            client.incr('hashes', loops_done);
+            client.set('hashes', loops_done, redis.print);
             loops_done = 0;
             deadline = moment().add(1, 'seconds').unix();
         }
@@ -59,36 +48,24 @@ function work_loop() {
 }
 
 function work_once() {
-    console.debug("Doing one unit of work");
+    console.log("Doing one unit of work");
     //TODO: sleep potentially
+    // time.sleep(0.1)
     var random_bytes = getRandomBytes();
     var hex_hash = hashBytes(random_bytes);
     if (hex_hash.startsWith('0')) {
         console.log("No coin found");
         return;
     }
-    console.log("Coin found {0}", hex_hash);
-    created = client.hmset('wallet', hex_hash, random_bytes);
+    console.log("Coin found %s", hex_hash);
+    //created = client.hmset('wallet', hex_hash, random_bytes);
     // TODO: missed bit here
 }
 
 client.on('connect', function() {
-    console.log('connected');
-    while (true) {
+   console.log('******connected********');
+   client.set('hashes', 0, redis.print);
+   while (true) {
         work_loop();
-    }
-});
-
-
-
-client.set("string key", "string val", redis.print);
-client.get("missingkey", function(err, reply) {
-    // reply is null when the key is missing
-    console.log(reply);
-})
-
-client.set('key1', 10, function() {
-    client.incr('key1', function(err, reply) {
-        console.log(reply); // 11
-    });
+  }
 });

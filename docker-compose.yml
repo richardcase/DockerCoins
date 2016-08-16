@@ -4,14 +4,18 @@ services:
   rng:
     build: rng
     ports:
-      - "8002:8002"
+      - "8002"
+    networks:
+      - backend
     depends_on:
       - redis
 
   hasher:
     build: hasher
     ports:
-      - "8001:8001"
+      - "8001"
+    networks:
+      - backend
     depends_on:
       - redis
 
@@ -19,15 +23,33 @@ services:
     build: webui
     ports:
       - "8000:8000"
+    networks:
+      - frontend
     volumes:
       - "./webui/files/:/files/"
     depends_on:
       - redis
 
   redis:
-    image: redis
+    build: redis
+    ports: 
+      - "6379"
+    networks:
+      - backend
+      - frontend
 
   worker:
-    build: worker
+    #build: worker
+    build: 
+      context: worker
+      dockerfile: Dockerfile-python
+    networks:
+      - backend
     depends_on:
       - redis
+      - rng
+      - hasher
+
+networks:
+  backend:
+  frontend:

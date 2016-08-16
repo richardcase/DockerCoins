@@ -10,8 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "memjs": "^0.10.0",
     "moment": "^2.14.1",
     "redis": "^2.6.2",
-    "request-promise": "^4.1.1"
+    "sync-request": "^3.0.1"
   }
 }

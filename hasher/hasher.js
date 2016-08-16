@@ -11,9 +11,13 @@ server.route({
     method: 'POST',
     path: '/',
     handler: function (request, reply) {
-        var body = request.payload;
-        var hash = crypto.createHash('sha256').update(body).digest("hex");
-        reply(hash);
+        // sleep 0.1
+        setTimeout(function() {
+            var body = request.payload;
+            var hash = crypto.createHash('sha256').update(body).digest("hex");
+            reply(hash);
+        }, 100);
+        
     }
 });
 
