@@ -1,0 +1,5 @@
+FROM golang:1.7-onbuild
+
+COPY . /go/src/app
+RUN go get gopkg.in/redis.v4
+RUN go install -v
