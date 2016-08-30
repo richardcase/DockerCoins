@@ -28,13 +28,13 @@ before_install:
     - pip3 -V
 
 install:
-    - cd code\src\hasher
+    - cd code\\src\\hasher
     - npm install
-    - cd ..\rng
+    - cd ..\\rng
     - npm install
-    - cd ..\webui
+    - cd ..\\webui
     - npm install
-    - cd ..\worker
+    - cd ..\\worker
     - sudo pip3 install -r requirements.txt
 
 
@@ -42,7 +42,7 @@ after_success:
     - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
     - export REPO=richardcase/dockercoins-hasher
     - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
-    - cd code\src\hasher
+    - cd code\\src\hasher
     - docker build -f  Dockerfile -t $REPO:$COMMIT .
     - docker tag $REPO:$COMMIT $REPO:$TAG
     - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
