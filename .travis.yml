@@ -61,7 +61,7 @@ after_success:
     - docker push $REPO
     - cd ../worker
     - export REPO=richardcase/dockercoins-worker
-    - docker build -f  Dockerfile-pyhton -t $REPO:$COMMIT .
+    - docker build -f  Dockerfile-python -t $REPO:$COMMIT .
     - docker tag $REPO:$COMMIT $REPO:$TAG
     - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
     - docker push $REPO
