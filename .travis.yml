@@ -39,15 +39,13 @@ install:
 
 
 after_success:
-    - pwd
-    - ls -a
     - export REPO_HASH=richardcase/dockercoins-hasher
     - export REPO_RNG=richardcase/dockercoins-rng
     - export REPO_WEB=richardcase/dockercoins-webui
     - export REPO_WORK=richardcase/dockercoins-worker
     - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
     - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-    - cd code/src/hasher
+    - cd ../hasher
     - docker build -f  Dockerfile -t $REPO_HASH:$COMMIT .
     - docker tag $REPO_HASH:$COMMIT $REPO_HASH:$TAG
     - docker tag $REPO_HASH:$COMMIT $REPO_HASH:travis-$TRAVIS_BUILD_NUMBER
