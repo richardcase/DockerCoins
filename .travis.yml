@@ -39,6 +39,8 @@ install:
 
 
 after_success:
+    - pwd
+    - ls -a
     - export REPO_HASH=richardcase/dockercoins-hasher
     - export REPO_RNG=richardcase/dockercoins-rng
     - export REPO_WEB=richardcase/dockercoins-webui
