@@ -39,32 +39,32 @@ install:
 
 
 after_success:
-    - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    - export REPO_HASH=richardcase/dockercoins-hasher
+    - export REPO_RNG=richardcase/dockercoins-rng
+    - export REPO_WEB=richardcase/dockercoins-webui
+    - export REPO_WORK=richardcase/dockercoins-worker
     - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+    - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
     - cd code/src/hasher
-    - export REPO=richardcase/dockercoins-hasher
-    - docker build -f  Dockerfile -t $REPO:$COMMIT .
-    - docker tag $REPO:$COMMIT $REPO:$TAG
-    - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
-    - docker push $REPO
+    - docker build -f  Dockerfile -t $REPO_HASH:$COMMIT .
+    - docker tag $REPO_HASH:$COMMIT $REPO_HASH:$TAG
+    - docker tag $REPO_HASH:$COMMIT $REPO_HASH:travis-$TRAVIS_BUILD_NUMBER
+    - docker push $REPO_HASH
     - cd ../rng
-    - export REPO=richardcase/dockercoins-rng
-    - docker build -f  Dockerfile -t $REPO:$COMMIT .
-    - docker tag $REPO:$COMMIT $REPO:$TAG
-    - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
-    - docker push $REPO
+    - docker build -f  Dockerfile -t $REPO_RNG:$COMMIT .
+    - docker tag $REPO_RNG:$COMMIT $REPO_RNG:$TAG
+    - docker tag $REPO_RNG:$COMMIT $REPO_RNG:travis-$TRAVIS_BUILD_NUMBER
+    - docker push $REPO_RNG
     - cd ../webui
-    - export REPO=richardcase/dockercoins-webui
-    - docker build -f  Dockerfile -t $REPO:$COMMIT .
-    - docker tag $REPO:$COMMIT $REPO:$TAG
-    - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
-    - docker push $REPO
+    - docker build -f  Dockerfile -t $REPO_WEB:$COMMIT .
+    - docker tag $REPO_WEB:$COMMIT $REPO_WEB:$TAG
+    - docker tag $REPO_WEB:$COMMIT $REPO_WEB:travis-$TRAVIS_BUILD_NUMBER
+    - docker push $REPO_WEB
     - cd ../worker
-    - export REPO=richardcase/dockercoins-worker
-    - docker build -f  Dockerfile-python -t $REPO:$COMMIT .
-    - docker tag $REPO:$COMMIT $REPO:$TAG
-    - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
-    - docker push $REPO
+    - docker build -f  Dockerfile-python -t $REPO_WORK:$COMMIT .
+    - docker tag $REPO_WORK:$COMMIT $REPO_WORK:$TAG
+    - docker tag $REPO_WORK:$COMMIT $REPO_WORK:travis-$TRAVIS_BUILD_NUMBER
+    - docker push $REPO_WORK
 
 env:
     global:
