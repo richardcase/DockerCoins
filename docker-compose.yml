@@ -42,8 +42,8 @@ services:
     #build: worker
     build: 
       context: code\src\worker
-      dockerfile: Dockerfile-go
-      #dockerfile: Dockerfile-python
+      #dockerfile: Dockerfile-go
+      dockerfile: Dockerfile-python
     networks:
       - backend
     depends_on:

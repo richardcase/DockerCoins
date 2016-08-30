@@ -1,0 +1,55 @@
+sudo: required
+dist: trusty
+
+language: node_js
+
+node_js:
+    - "6.3"
+python:
+    - "3.4"
+
+services:
+    - docker
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      # nodejs >v4 compiler requirements
+      - g++-4.8
+      - openjdk-7-jdk
+
+before_install:
+    - sudo apt-get -y install python3-pip python-dev
+    - sudo pip3 install -U setuptools
+    - sudo pip3 install -U virtualenvwrapper
+    - python3 -V
+    - pip3 -V
+
+install:
+    - cd code\src\hasher
+    - npm install
+    - cd ..\rng
+    - npm install
+    - cd ..\webui
+    - npm install
+    - cd ..\worker
+    - sudo pip3 install -r requirements.txt
+
+
+after_success:
+    - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    - export REPO=richardcase/dockercoins-hasher
+    - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+    - cd code\src\hasher
+    - docker build -f  Dockerfile -t $REPO:$COMMIT .
+    - docker tag $REPO:$COMMIT $REPO:$TAG
+    - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+    - docker push $REPO
+
+env:
+    global:
+        - CXX=g++-4.8
+        - NODE_ENV=development
+        - COMMIT=${TRAVIS_COMMIT::8}
