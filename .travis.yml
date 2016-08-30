@@ -40,10 +40,28 @@ install:
 
 after_success:
     - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-    - export REPO=richardcase/dockercoins-hasher
     - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
     - cd code/src/hasher
+    - export REPO=richardcase/dockercoins-hasher
     - docker build -f  Dockerfile -t $REPO:$COMMIT .
+    - docker tag $REPO:$COMMIT $REPO:$TAG
+    - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+    - docker push $REPO
+    - cd ../rng
+    - export REPO=richardcase/dockercoins-rng
+    - docker build -f  Dockerfile -t $REPO:$COMMIT .
+    - docker tag $REPO:$COMMIT $REPO:$TAG
+    - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+    - docker push $REPO
+    - cd ../webui
+    - export REPO=richardcase/dockercoins-webui
+    - docker build -f  Dockerfile -t $REPO:$COMMIT .
+    - docker tag $REPO:$COMMIT $REPO:$TAG
+    - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+    - docker push $REPO
+    - cd ../worker
+    - export REPO=richardcase/dockercoins-worker
+    - docker build -f  Dockerfile-pyhton -t $REPO:$COMMIT .
     - docker tag $REPO:$COMMIT $REPO:$TAG
     - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
     - docker push $REPO
