@@ -1,0 +1,52 @@
+version: "2"
+
+services:
+  rng:
+    image: richardcase/dockercoins-rng
+    ports:
+      - "8002"
+    networks:
+      - backend
+    depends_on:
+      - redis
+
+  hasher:
+    image: richardcase/dockercoins-hasher
+    ports:
+      - "8001"
+    networks:
+      - backend
+    depends_on:
+      - redis
+
+  webui:
+    image: richardcase/dockercoins-webui
+    ports:
+      - "8000:8000"
+    networks:
+      - frontend
+    volumes:
+      - "./code/src/webui/files/:/files/"
+    depends_on:
+      - redis
+
+  redis:
+    image: redis
+    ports: 
+      - "6379"
+    networks:
+      - backend
+      - frontend
+
+  worker:
+    image: richardcase/dockercoins-worker
+    networks:
+      - backend
+    depends_on:
+      - redis
+      - rng
+      - hasher
+
+networks:
+  backend:
+  frontend:
