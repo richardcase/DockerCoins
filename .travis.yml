@@ -32,8 +32,6 @@ install:
     - cd ../webui
     - npm install
     - cd ../worker
-    - sudo pip3 install -r requirements.txt
-
 
 after_success:
     - export REPO_HASH=richardcase/dockercoins-hasher
