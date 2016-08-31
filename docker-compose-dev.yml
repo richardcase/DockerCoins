@@ -2,7 +2,7 @@ version: "2"
 
 services:
   rng:
-    build: code/src/rng
+    build: src/rng
     ports:
       - "8002"
     networks:
@@ -11,7 +11,7 @@ services:
       - redis
 
   hasher:
-    build: code/src/hasher
+    build: src/hasher
     ports:
       - "8001"
     networks:
@@ -20,18 +20,18 @@ services:
       - redis
 
   webui:
-    build: code/src/webui
+    build: src/webui
     ports:
       - "8000:8000"
     networks:
       - frontend
     volumes:
-      - "./code/src/webui/files/:/files/"
+      - "./src/webui/files/:/files/"
     depends_on:
       - redis
 
   redis:
-    build: code/src/redis
+    image: redis
     ports: 
       - "6379:6379"
     networks:
@@ -40,7 +40,7 @@ services:
 
   worker:
     build: 
-      context: code/src/worker
+      context: src/worker
       dockerfile: Dockerfile
     networks:
       - backend

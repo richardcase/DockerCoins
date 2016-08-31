@@ -1,8 +1,3 @@
-third_party/pkg/*
-third_party/bin/*
-**/.git
-docode/pkg/*
-docode/bin/*
 .DS_Store
 **/bin
 **/obj

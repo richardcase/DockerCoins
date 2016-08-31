@@ -28,7 +28,7 @@ before_install:
     - pip3 -V
 
 install:
-    - cd code/src/hasher
+    - cd src/hasher
     - npm install
     - cd ../rng
     - npm install
