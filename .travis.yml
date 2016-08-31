@@ -33,6 +33,9 @@ install:
     - npm install
     - cd ../worker
 
+script:
+    - echo "No tests"
+
 after_success:
     - export REPO_HASH=richardcase/dockercoins-hasher
     - export REPO_RNG=richardcase/dockercoins-rng
