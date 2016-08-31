@@ -21,8 +21,8 @@ addons:
       - openjdk-7-jdk
 
 before_install:
-    - npm -V
-    - node -V
+    - npm -v
+    - node -v
 
 install:
     - cd src/hasher
