@@ -36,7 +36,7 @@ namespace DockerCoins.Worker
                 {
                     Console.WriteLine("{0} unit of work done, updating hash counter", loopsDone);
                     IDatabase db = redis.GetDatabase();
-                    db.StringSet("hashes",loopsDone);
+                    db.StringIncrement("hashes",loopsDone);
 
                     loopsDone = 0;
                     deadLine = DateTime.Now.AddSeconds(this.IntervalInSeconds);

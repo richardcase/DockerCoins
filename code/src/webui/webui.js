@@ -17,7 +17,7 @@ app.get('/json', function (req, res) {
             var now = Date.now() / 1000;
             res.json( {
                 coins: coins,
-                hashes: hashes,
+                hashes: parseInt(hashes),
                 now: now
             });
         });
