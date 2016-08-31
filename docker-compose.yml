@@ -42,8 +42,6 @@ services:
     image: richardcase/dockercoins-worker
     networks:
       - backend
-    environment:
-      - DEBUG=y
     depends_on:
       - redis
       - rng
