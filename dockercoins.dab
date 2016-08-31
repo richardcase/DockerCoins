@@ -1,7 +1,7 @@
 {
   "Services": {
     "hasher": {
-      "Image": "richardcase/dockercoins-hasher@sha256:158ca9ab56c3b5155731752652f6315a659b4e8a19f966a824d2a236b3f6ab3d", 
+      "Image": "richardcase/dockercoins-hasher@sha256:56f8e3863b1c6b8bde4a40b2dfe2200adfeb520b5557f4844d47fe1e350a89dd", 
       "Networks": [
         "backend"
       ], 
@@ -26,7 +26,7 @@
       ]
     }, 
     "rng": {
-      "Image": "richardcase/dockercoins-rng@sha256:63fdc4d2a5ad1e1f8d22c516a32ba0744454495aa35bc4c37c644cc4924594aa", 
+      "Image": "richardcase/dockercoins-rng@sha256:7e6e6ccb531cf1d284092b18b70014a5ace43c762279dbef0109cd77607a2a66", 
       "Networks": [
         "backend"
       ], 
@@ -38,7 +38,7 @@
       ]
     }, 
     "webui": {
-      "Image": "richardcase/dockercoins-webui@sha256:8b50b14db665dcaebf856b05ccac98989cf6e342fa2b302fbf5001a2b1f8e28d", 
+      "Image": "richardcase/dockercoins-webui@sha256:f8a07a2eab2ca3c24465c26f5b6715b1e44f6e476a6781bbeee098363b7a64da", 
       "Networks": [
         "frontend"
       ], 

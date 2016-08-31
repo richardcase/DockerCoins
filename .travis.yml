@@ -59,7 +59,7 @@ after_success:
     - docker tag $REPO_WEB:$COMMIT $REPO_WEB:travis-$TRAVIS_BUILD_NUMBER
     - docker push $REPO_WEB
     - cd ../worker
-    - docker build -f  Dockerfile-netcore -t $REPO_WORK:$COMMIT .
+    - docker build -f  Dockerfile -t $REPO_WORK:$COMMIT .
     - docker tag $REPO_WORK:$COMMIT $REPO_WORK:$TAG
     - docker tag $REPO_WORK:$COMMIT $REPO_WORK:travis-$TRAVIS_BUILD_NUMBER
     - docker push $REPO_WORK
