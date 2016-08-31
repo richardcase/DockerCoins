@@ -13,6 +13,7 @@ namespace DockerCoins.Worker
             Console.WriteLine("Starting DockerCoins Worker");
             
             string redisHostname = "redis"; // TODO: get from args or environment
+            Network.LogAllIPsForHostName(redisHostname);
             string redisIp = Network.GetIPFromHostName(redisHostname);
             if (redisIp == null)
             {

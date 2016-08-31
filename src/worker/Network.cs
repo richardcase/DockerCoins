@@ -25,5 +25,18 @@ namespace DockerCoins.Worker
 
             return null;
         }
+
+        public static void LogAllIPsForHostName(string hostName)
+        {
+            var task = Dns.GetHostEntryAsync(hostName);
+            task.Wait();
+            IPHostEntry result = task.Result;
+            
+            Console.WriteLine("Found {0} IP addresses for host {1}", result.AddressList.Length, hostName);
+            foreach (IPAddress address in result.AddressList)
+            {
+                Console.WriteLine("\tAddress: {0} Family {1}: ", address.ToString(), address.AddressFamily);
+            }
+        }
     }
 }
