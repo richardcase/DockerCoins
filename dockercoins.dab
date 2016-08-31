@@ -1,7 +1,7 @@
 {
   "Services": {
     "hasher": {
-      "Image": "richardcase/dockercoins-hasher@sha256:cd91f4992589859880ca18a60ddf193f6aed87d89a44c67e58cf49973a377541", 
+      "Image": "richardcase/dockercoins-hasher@sha256:c875faffc9f510488c447cb9e04583792b84d367317fb877901d3907fa17ba2f", 
       "Networks": [
         "backend"
       ], 
@@ -26,7 +26,7 @@
       ]
     }, 
     "rng": {
-      "Image": "richardcase/dockercoins-rng@sha256:918179ec6b891c75b83144922104214262b929b54355fc256405d98fc533ef3e", 
+      "Image": "richardcase/dockercoins-rng@sha256:6209b6cd509b79f0ba49fb5aac8ddaea6a115ef63bbfc36b507b807f42908d98", 
       "Networks": [
         "backend"
       ], 
@@ -38,7 +38,7 @@
       ]
     }, 
     "webui": {
-      "Image": "richardcase/dockercoins-webui@sha256:af3534a7fdfe1242140b5822b4995a79506a5955f4501a898d66f85e6e3b996e", 
+      "Image": "richardcase/dockercoins-webui@sha256:5b608aa4916317ba935fffc417650915c80e34fd88592e01ff06091fc2a27f30", 
       "Networks": [
         "frontend"
       ], 
@@ -50,10 +50,7 @@
       ]
     }, 
     "worker": {
-      "Env": [
-        "DEBUG=y"
-      ], 
-      "Image": "richardcase/dockercoins-worker@sha256:bcc21e9cdc447813fccaf5c057354efa7274fd8af417307fcb886d90a7e0c4b5", 
+      "Image": "richardcase/dockercoins-worker@sha256:afc4084adaabef1aaf9075a68fda14b91a3c4ba68d4e7bea5a3d4d5a83bebc30", 
       "Networks": [
         "backend"
       ]
