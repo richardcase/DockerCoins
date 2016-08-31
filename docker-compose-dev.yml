@@ -39,12 +39,9 @@ services:
       - frontend
 
   worker:
-    #build: worker
     build: 
       context: code/src/worker
-      #dockerfile: Dockerfile-go
-      #dockerfile: Dockerfile-python
-      dockerfile: Dockerfile-netcore
+      dockerfile: Dockerfile
     networks:
       - backend
     depends_on:
