@@ -4,3 +4,6 @@ third_party/bin/*
 docode/pkg/*
 docode/bin/*
 .DS_Store
+**/bin
+**/obj
+**/project.lock.json

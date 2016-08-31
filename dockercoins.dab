@@ -1,0 +1,63 @@
+{
+  "Services": {
+    "hasher": {
+      "Image": "richardcase/dockercoins-hasher@sha256:cd91f4992589859880ca18a60ddf193f6aed87d89a44c67e58cf49973a377541", 
+      "Networks": [
+        "backend"
+      ], 
+      "Ports": [
+        {
+          "Port": 8001, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "redis": {
+      "Image": "redis@sha256:82bb381627519709f458e1dd2d4ba36d61244368baf186615ab733f02363e211", 
+      "Networks": [
+        "frontend", 
+        "backend"
+      ], 
+      "Ports": [
+        {
+          "Port": 6379, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "rng": {
+      "Image": "richardcase/dockercoins-rng@sha256:918179ec6b891c75b83144922104214262b929b54355fc256405d98fc533ef3e", 
+      "Networks": [
+        "backend"
+      ], 
+      "Ports": [
+        {
+          "Port": 8002, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "webui": {
+      "Image": "richardcase/dockercoins-webui@sha256:af3534a7fdfe1242140b5822b4995a79506a5955f4501a898d66f85e6e3b996e", 
+      "Networks": [
+        "frontend"
+      ], 
+      "Ports": [
+        {
+          "Port": 8000, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "worker": {
+      "Env": [
+        "DEBUG=y"
+      ], 
+      "Image": "richardcase/dockercoins-worker@sha256:bcc21e9cdc447813fccaf5c057354efa7274fd8af417307fcb886d90a7e0c4b5", 
+      "Networks": [
+        "backend"
+      ]
+    }
+  }, 
+  "Version": "0.1"
+}
