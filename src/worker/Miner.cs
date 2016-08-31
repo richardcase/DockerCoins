@@ -26,7 +26,18 @@ namespace DockerCoins.Worker
 
         public void DoWork()
         {
-            redis = ConnectionMultiplexer.Connect(this.redisUrl);
+            ConfigurationOptions config = new ConfigurationOptions
+            {
+                EndPoints = 
+                {
+                    { this.redisUrl, 6379 }
+                },
+                AbortOnConnectFail=false
+            };
+
+
+
+            redis = ConnectionMultiplexer.Connect(config);
             
             DateTime deadLine = DateTime.MinValue;
             int loopsDone = 0;
