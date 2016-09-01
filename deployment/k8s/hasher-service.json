@@ -1,0 +1,20 @@
+{
+    "kind": "Service",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "hasher"
+    },
+    "spec": {
+        "selector": {
+            "app" : "hasher",
+            "tier" : "backend"
+        },
+        "ports": [
+            {
+                "protocol": "TCP",
+                "port": 8001,
+                "targetPort": 8001
+            }
+        ]
+    }
+}

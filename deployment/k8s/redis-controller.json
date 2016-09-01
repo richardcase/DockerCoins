@@ -1,0 +1,39 @@
+{
+  "apiVersion": "v1",
+  "kind": "ReplicationController",
+  "metadata": {
+    "name": "redis",
+    "labels":  {
+        "app" : "redis",
+        "role": "master",
+        "tier" : "backend"
+    }
+  },
+  "spec": {
+    "replicas": 1,
+    "template": {
+      "metadata": {
+        "labels": {
+          "app":"redis",
+          "role": "master",
+          "tier": "backend"
+        }
+      },
+      "spec": {
+        "volumes": null,
+        "containers" : [
+            {
+                "name": "dockercoins-redis",
+                "image": "redis",
+                "ports" : [
+                    {
+                        "containerPort" : 6379,
+                        "protocol": "TCP"
+                    }
+                ]
+            }
+        ]
+      }
+    }
+  }
+}

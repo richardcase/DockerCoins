@@ -1,0 +1,37 @@
+{
+  "apiVersion": "v1",
+  "kind": "ReplicationController",
+  "metadata": {
+    "name": "rng",
+    "labels":  {
+        "app" : "rng",
+        "tier" : "backend"
+    }
+  },
+  "spec": {
+    "replicas": 1,
+    "template": {
+      "metadata": {
+        "labels": {
+          "app" : "rng",
+          "tier" : "backend"
+        }
+      },
+      "spec": {
+        "volumes": null,
+        "containers" : [
+            {
+                "name": "dockercoins-rng",
+                "image": "richardcase/dockercoins-rng",
+                "ports" : [
+                    {
+                        "containerPort" : 8002,
+                        "protocol": "TCP"
+                    }
+                ]
+            }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "apiVersion": "v1",
+  "kind": "ReplicationController",
+  "metadata": {
+    "name": "worker",
+    "labels":  {
+        "app" : "worker",
+        "tier" : "backend"
+    }
+  },
+  "spec": {
+    "replicas": 1,
+    "template": {
+      "metadata": {
+        "labels": {
+          "app":"worker",
+          "tier": "backend"
+        }
+      },
+      "spec": {
+        "volumes": null,
+        "containers" : [
+            {
+                "name": "dockercoins-worker",
+                "image": "richardcase/dockercoins-worker",
+                "env": [
+                  {
+                    "name" : "DOCKERCOINS_REDIS",
+                    "value": "redis"
+                  },
+                  {
+                    "name" : "DOCKERCOINS_HASHER",
+                    "value": "http://hasher:8001"
+                  },
+                  {
+                    "name" : "DOCKERCOINS_RNG",
+                    "value": "http://rng:8002/32"
+                  }
+                ]
+            }
+        ]
+      }
+    }
+  }
+}

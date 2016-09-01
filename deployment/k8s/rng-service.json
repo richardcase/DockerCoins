@@ -1,0 +1,21 @@
+{
+    "kind": "Service",
+    "apiVersion": "v1",
+    "metadata": {
+        "app" : "rng",
+        "tier" : "backend"
+    },
+    "spec": {
+        "selector": {
+            "app" : "rng",
+            "tier" : "backend"
+        },
+        "ports": [
+            {
+                "protocol": "TCP",
+                "port": 8002,
+                "targetPort": 8002
+            }
+        ]
+    }
+}

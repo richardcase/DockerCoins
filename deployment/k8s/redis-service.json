@@ -1,0 +1,26 @@
+{
+    "kind": "Service",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "redis",
+        "labels": {
+            "app" : "redis",
+            "role": "master",
+            "tier" : "backend"
+        }
+    },
+    "spec": {
+        "selector": {
+            "app" : "redis",
+            "role": "master",
+            "tier" : "backend"
+        },
+        "ports": [
+            {
+                "protocol": "TCP",
+                "port": 6379,
+                "targetPort": 6379
+            }
+        ]
+    }
+}
