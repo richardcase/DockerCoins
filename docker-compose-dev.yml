@@ -42,6 +42,10 @@ services:
     build: 
       context: src/worker
       dockerfile: Dockerfile
+    environment:
+      - DOCKERCOINS_REDIS=redis
+      - DOCKERCOINS_HASHER=http://hasher:8001
+      - DOCKERCOINS_RNG=http://rng:8002/32
     networks:
       - backend
     depends_on:

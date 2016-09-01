@@ -1,0 +1,18 @@
+eval $(docker-machine env MANAGER)
+
+
+docker service rm worker
+docker service rm redis
+docker service rm hasher
+docker service rm rng
+
+docker rm $(docker ps -a -q)
+docker rmi $(docker images -q)
+
+eval $(docker-machine env WORKER1)
+docker rm $(docker ps -a -q)
+docker rmi $(docker images -q)
+
+eval $(docker-machine env WORKER2)
+docker rm $(docker ps -a -q)
+docker rmi $(docker images -q)

@@ -11,13 +11,31 @@ namespace DockerCoins.Worker
         public static void Main(string[] args)
         {
             Console.WriteLine("Starting DockerCoins Worker");
-            
-            string redisHostname = "redis"; // TODO: get from args or environment
-            Network.LogAllIPsForHostName(redisHostname);
-            string redisIp = Network.GetIPFromHostName(redisHostname);
+
+            string redisHostName = Environment.GetEnvironmentVariable("DOCKERCOINS_REDIS");
+            if (string.IsNullOrEmpty(redisHostName))
+            {
+                Console.WriteLine("ERROR: You must set the DOCKERCOINS_REDIS environment variable");
+                return;
+            }
+            string hasherUrl = Environment.GetEnvironmentVariable("DOCKERCOINS_HASHER");
+            if (string.IsNullOrEmpty(hasherUrl))
+            {
+                Console.WriteLine("ERROR: You must set the DOCKERCOINS_HASHER environment variable");
+                return;
+            }
+            string rngUrl = Environment.GetEnvironmentVariable("DOCKERCOINS_RNG");
+            if (string.IsNullOrEmpty(rngUrl))
+            {
+                Console.WriteLine("ERROR: You must set the DOCKERCOINS_RNG environment variable");
+                return;
+            }
+
+            Network.LogAllIPsForHostName(redisHostName);
+            string redisIp = Network.GetIPFromHostName(redisHostName);
             if (redisIp == null)
             {
-                Console.WriteLine("Failed to lookup IP address for Redis. Exiting.......");
+                Console.WriteLine("ERROR: Failed to lookup IP address for Redis. Exiting.......");
                 return;            
             }
             
@@ -25,7 +43,7 @@ namespace DockerCoins.Worker
             {
                 try
                 {
-                    Miner miner = new Miner(1, redisIp, "http://hasher:8001", "http://rng:8002/32");
+                    Miner miner = new Miner(1, redisIp, hasherUrl, rngUrl);
                     miner.DoWork();   
                 }
                 catch (System.Exception err)
