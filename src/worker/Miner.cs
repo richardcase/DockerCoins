@@ -84,8 +84,10 @@ namespace DockerCoins.Worker
 
         private async Task<string> GetRandomBytesAsync()
         {
+            Console.WriteLine("\tEnter GetRandomBytesAsync");
             using (HttpClient client = new HttpClient())
             {
+                client.Timeout = new TimeSpan(0,0,10);
                 using (HttpRequestMessage request = new HttpRequestMessage())
                 {
                     request.RequestUri = new Uri (this.rngUrl);
@@ -106,8 +108,10 @@ namespace DockerCoins.Worker
 
         private async Task<string> HashBytesAsync(string bytesToHash)
         {
+            Console.WriteLine("\tEnter HashBytesAsync");
             using (HttpClient client = new HttpClient())
             {
+                client.Timeout = new TimeSpan(0,0,10);
                 using (HttpRequestMessage request = new HttpRequestMessage())
                 {
                     request.RequestUri = new Uri (this.hasherUrl);
