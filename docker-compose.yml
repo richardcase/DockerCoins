@@ -40,6 +40,10 @@ services:
 
   worker:
     image: richardcase/dockercoins-worker
+    environment:
+      - DOCKERCOINS_REDIS=redis
+      - DOCKERCOINS_HASHER=http://hasher:8001
+      - DOCKERCOINS_RNG=http://rng:8002/32
     networks:
       - backend
     depends_on:
