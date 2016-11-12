@@ -29,7 +29,7 @@ server.route({
     method: 'GET',
     path: '/',
     handler: function (request, reply) {
-        reply('RNG running on ' + server.info.uri);
+        reply('RNG service running on ' + server.info.uri);
     }
 });
 
